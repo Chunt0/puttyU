@@ -1,0 +1,35 @@
+Law of Large Numbers: Basis for statistics; understanding it makes other concepts easier.
+
+Central Limit Theorem: Extends the Law of Large Numbers and introduces Gaussian distribution.
+
+Z-Test and T-Test: Basic hypothesis testing, foundation for statistical inference.
+
+F-Test and Chi-Squared Test: Extend your understanding of hypothesis testing.
+
+ANOVA (Analysis of Variance): Builds on t-tests and F-tests, used in regression analysis.
+
+Least Squares Estimation: Core optimization technique, often introduced with ANOVA.
+
+Bias-Variance Tradeoff: Crucial for understanding model generalization.
+
+Maximum Likelihood Estimation: Fundamental to parameter estimation and thus machine learning models.
+
+Bayes' Theorem: Foundation for Bayesian statistics, critical for some ML algorithms.
+
+Markov's Inequality and Chebyshev's Inequality: Basic probability bounds, useful for analysis.
+
+Hoeffding's Inequality: Extends Markov and Chebyshev, used in ensemble methods.
+
+Chernoff Bounds: Advanced probability bounds, used in randomized algorithms.
+
+Cochran's Theorem: Advanced topic usually covered with ANOVA.
+
+Jensen's Inequality: Important for convex optimization.
+
+Kullback-Leibler Divergence: Important for understanding information theory in ML.
+
+Cramer-Rao Lower Bound: Advanced topic, gives limit on estimator variance.
+
+Expectation-Maximization: Used for parameter estimation in models with hidden variables.
+
+ROC Curve and AUC: For evaluating classification models; more specialized but important.

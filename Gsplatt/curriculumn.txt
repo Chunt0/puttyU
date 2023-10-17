@@ -1,0 +1,39 @@
+Coordinate Systems: Understand 2D and 3D space where splatting occurs.
+
+Gaussian Function: Foundation of Gaussian splatting, used to distribute values in space.
+
+Point Sampling: Know how to sample data points for splatting.
+
+Kernel Functions: Gaussian is one example; understand its properties.
+
+Discretization: Converting continuous Gaussian function into a usable digital format.
+
+Intensity Weighting: How the Gaussian function affects the intensity of each sample.
+
+Convolution: The mathematical operation behind applying the Gaussian kernel.
+
+Normalization: Ensuring the sum of all weights equals one for proper splatting.
+
+Bandwidth Parameter: Affects the width of the Gaussian; understand its impact.
+
+Boundary Handling: How to manage edge cases where the Gaussian kernel might exceed the data grid.
+
+Multi-dimensional Splatting: Extending the concept to higher dimensions, useful in volume rendering.
+
+Computational Efficiency: Optimize the splatting operation for performance.
+
+Anti-aliasing Techniques: Minimize artifacts caused by discretization.
+
+Colormap Transformations: Optional, if you're applying color through splatting.
+
+Accumulation Buffer: For advanced applications where multiple splats overlap.
+
+Parallelization: Using GPU or multi-threading for faster computation.
+
+Hierarchical Data Structures: KD-Tree or Octree for efficient data access.
+
+Real-time Applications: Adjusting techniques for speed in real-time environments.
+
+Splat Merging: Advanced topic, combining nearby splats for efficiency.
+
+Evaluation Metrics: Quantitative measures like RMSE to assess the quality of the splatting.

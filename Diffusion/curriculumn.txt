@@ -1,0 +1,39 @@
+Basics of Image Representation: Understand pixel values, channels, and dimensions.
+
+Noise Addition: Learn how noise is added to images as the starting point of diffusion models.
+
+Forward and Reverse Diffusion: Understand the core mechanism of how images are constructed and deconstructed.
+
+PDEs in Image Processing: Context for how diffusion equations are used in image generation.
+
+Variational Inference: Used for approximating the posterior distribution in diffusion models.
+
+Unconditional Image Generation: Generate images from noise through the diffusion process.
+
+Conditional Image Generation: Use conditions or labels to guide the diffusion process.
+
+Learning Rate Scheduling: Important for stable and efficient training.
+
+Score Matching: Technique for estimating gradients of log-density in continuous models, used in some diffusion models.
+
+Data Augmentation: Improve model robustness and generalization.
+
+Markov Chain Monte Carlo (MCMC): Sometimes used for sampling in diffusion processes.
+
+Batch Normalization: Stabilizes training, commonly used in deep networks.
+
+Skip Connections: Facilitate training by providing shortcuts between layers.
+
+Multi-Scale Architectures: For generating images at different resolutions.
+
+Loss Functions: Understanding objectives like MSE, MAE, and perceptual loss in the context of image generation.
+
+Optimization Algorithms: Adam, RMSProp, and their role in training diffusion models.
+
+Post-Processing Techniques: Denoising, color correction, etc., to improve generated image quality.
+
+Evaluation Metrics: FID, Inception Score, and others to assess model performance.
+
+Advanced Sampling Methods: Methods like Annealed Importance Sampling for improving generation quality.
+
+Transfer Learning and Fine-Tuning: Adapt pre-trained diffusion models for specific tasks.

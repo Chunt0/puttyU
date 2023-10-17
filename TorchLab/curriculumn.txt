@@ -1,0 +1,39 @@
+Python Basics: Essential for any PyTorch project.
+
+PyTorch Installation: Install the framework and understand CUDA compatibility if using GPUs.
+
+Tensor Operations: Master basics like creation, slicing, and manipulation.
+
+Autograd: PyTorch's automatic differentiation library.
+
+Simple Neural Network: Build a basic feed-forward network using nn.Module.
+
+Loss Functions: Understand nn.CrossEntropyLoss, nn.MSELoss, etc.
+
+Optimizers: Familiarize yourself with torch.optim, like SGD and Adam.
+
+Forward and Backward Pass: Implement training loops.
+
+Data Loading: Use DataLoader and Dataset for batch processing.
+
+Model Evaluation: Implement validation loops, understand metrics like accuracy, F1-score.
+
+Model Saving & Loading: Use torch.save and torch.load for checkpoints.
+
+CPU vs GPU: Learn how to move tensors and models between CPU and GPU.
+
+Fine-tuning: Adapt pretrained models to new tasks.
+
+Regularization: Understand techniques like dropout and weight decay.
+
+Batch Normalization: Stabilizes and potentially speeds up training.
+
+Transfer Learning: Use models like ResNet, VGG from torchvision.models.
+
+Custom Layers: Create user-defined layers extending nn.Module.
+
+RNNs, LSTMs, GRUs: Implement sequence models.
+
+Attention Mechanisms: Understand the basics, relevant for transformers.
+
+Distributed Training: Learn basics of torch.nn.DataParallel and torch.nn.parallel.DistributedDataParallel.

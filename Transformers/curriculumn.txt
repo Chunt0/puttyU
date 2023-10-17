@@ -1,0 +1,41 @@
+Positional Encoding: Understand how position information is added in a sequence.
+
+Multi-Head Attention: Core mechanism for handling sequences, grasping it is crucial.
+
+Scaled Dot-Product Attention: Simplified attention mechanism, often a part of multi-head attention.
+
+Layer Normalization: Preprocessing step to stabilize training.
+
+Feed-Forward Neural Networks: Basic building blocks used in each transformer layer.
+
+Stacking Layers: Understand the architecture of multiple encoder and decoder layers.
+
+Residual Connections: Aids in training deeper networks, commonly used in transformers.
+
+Masking: Essential for tasks like language modeling to prevent future information leakage.
+
+Word Embeddings: How words are converted into numerical form, typically the first layer.
+
+Transformer Encoder-Decoder Architecture: Understand how the encoder's output is used by the decoder.
+
+Teacher Forcing: Used in training decoders for sequence-to-sequence tasks.
+
+Sequence-to-Sequence Models: Context for where transformers are often employed.
+
+Self-Attention vs. Cross-Attention: Differences and applications of each.
+
+Parameter Sharing: Understanding how parameters are (or aren't) shared can affect size and performance.
+
+Transfer Learning: Fine-tuning pretrained models for specific tasks.
+
+Bidirectional Context (BERT): Important if focusing on NLP applications.
+
+GPT Architecture: Understand the decoder-only architecture for generative tasks.
+
+Multi-Task Learning: Using transformers for multiple tasks simultaneously.
+
+Efficient Attention: Methods like Linformer, Longformer for handling long sequences.
+
+Knowledge Distillation: Compressing a large transformer model into a smaller one.
+
+
