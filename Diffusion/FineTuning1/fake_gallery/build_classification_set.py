@@ -19,14 +19,12 @@ detail_path = "./class_img/detail/"
 
 TZVET_dir = [TZVET_PATH+f+"/" for f in os.listdir(TZVET_PATH) if os.path.isdir(os.path.join(TZVET_PATH,f))]
 
-for d in TZVET_dir[:5]:
+for d in TZVET_dir[:1]:
     for filename in os.listdir(d):
         if filename.endswith(".jpg"):
             try:
                 img = Image.open(d+filename)
-                plt.imshow(img)
-                plt.axis('off')  # Optional: Turn off axis labels and ticks
-                plt.show()
+                img.show()
             except Exception as e:
                 print(f"Error: {str(e)}")
 
