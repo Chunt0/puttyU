@@ -1,91 +1,58 @@
 import os
 from flask import Flask, render_template, request, redirect, url_for
-import shutil
+from PIL import Image
 import csv
+import shutil
 
 app = Flask(__name__)
 
-
 TZVET_PATH = "./static/TZVET/TZVET_img/"
-TZVET_dir = [TZVET_PATH+f+"/" for f in os.listdir(TZVET_PATH) if os.path.isdir(os.path.join(TZVET_PATH,f))]
+TZVET_dir = [TZVET_PATH + f + "/" for f in os.listdir(TZVET_PATH) if os.path.isdir(os.path.join(TZVET_PATH, f))]
 classes = ["install", "artwork", "detail"]
 img_files = []
-for d in TZVET_dir[:2]:
+for d in TZVET_dir:
     for file in os.listdir(d):
         if file.endswith(".jpg"):
-            img_files.append(d+file)
+            img_files.append(d + file)
+
+class_counts = [0] * len(classes)
+labeled_imgs = []
 idx = 0
-class_counts= [0,0,0]
-labeled_imgs = [("file_name", "label")]
 
 @app.route('/')
 def index():
-    img = img_files[idx]
-    print(img)
-    return render_template('index.html', img_file=img)
+    return render_template('index.html', img_file=img_files[idx], classes=classes)
 
 @app.route('/submit', methods=['POST'])
 def submit():
-    global idx, class_counts 
+    global idx, class_counts, labeled_imgs, img_files
+
     img_filename = img_files[idx]
-    user_input = int(request.form.get('user_input'))
-    class_counts[user_input] += 1
-    if user_input == 0:
-        class_counts[0] += 1
+    try:
+        user_input = int(request.form.get('user_input'))
+    except:
+        user_input = -1
+    
+    if 0 <= user_input < len(classes):
         label = classes[user_input]
-        if class_counts[0] < 401:
-            dst = "./static/img/train/"+label+f"/{idx}.jpg"
-            try:
-                shutil.copy(img_filename,dst)
-            except:
-                pass
-        elif class_counts[0] < 501:
-            dst = "./static/img/test/"+label+f"/{idx}.jpg"
-            try:
-                shutil.copy(img_filename,dst)
-            except:
-                pass
+        class_counts[user_input] += 1
+        if class_counts[user_input] < 401:
+            dst = f"./static/img/train/{label}/{idx}.jpg"
+        elif class_counts[user_input] < 501:
+            dst = f"./static/img/test/{label}/{idx}.jpg"
         else:
             print(f"All {label} files have been labeled")
-    elif user_input == 1:
-        class_counts[1] += 1
-        label = classes[user_input]
-        if class_counts[1] < 401:
-            dst = "./static/img/train/"+label+f"/{idx}.jpg"
+            dst = None
+
+        if dst:
             try:
-                shutil.copy(img_filename,dst)
+                shutil.copy(img_filename, dst)
             except:
                 pass
-        elif class_counts[1] < 501:
-            dst = "./static/img/test/"+label+f"/{idx}.jpg"
-            try:
-                shutil.copy(img_filename,dst)
-            except:
-                pass
-        else:
-            print(f"All {label} files have been labeled")
-    elif user_input == 2:
-        class_counts[2] += 1
-        label = classes[user_input]
-        if class_counts[2] < 401:
-            dst = "./static/img/train/"+label+f"/{idx}.jpg"
-            try:
-                shutil.copy(img_filename,dst)
-            except:
-                pass
-        elif class_counts[2] < 501:
-            dst = "./static/img/test/"+label+f"/{idx}.jpg"
-            try:
-                shutil.copy(img_filename,dst)
-            except:
-                pass
-        else:
-            print(f"All {label} files have been labeled")
+        labeled_imgs.append((img_filename, label))
     else:
         label = ""
-        print(f"incorrect label: {img_filename}")
-
-    labeled_imgs.append((img_filename,label))
+        print(f"Incorrect label: {img_filename}")
 
     with open("./metadata.csv", "w") as csvfile:
         writer = csv.writer(csvfile)
