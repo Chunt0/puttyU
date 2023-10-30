@@ -19,14 +19,23 @@ detail_path = "./class_img/detail/"
 
 TZVET_dir = [TZVET_PATH+f+"/" for f in os.listdir(TZVET_PATH) if os.path.isdir(os.path.join(TZVET_PATH,f))]
 
-for d in TZVET_dir[:1]:
+classes = ["install", "artwork", "detail"]
+img_class = []
+
+for d in TZVET_dir[4:5]:
     for filename in os.listdir(d):
         if filename.endswith(".jpg"):
             try:
                 img = Image.open(d+filename)
-                img.show()
+                plt.imshow(img)
+                plt.axis('off')  # Optional: Turn off axis labels and ticks
+                user_input = int(input("Enter Class Value: "))
+                label = classes[user_input]
+                labeled_img = (d+filename, label)
+                img_class.append(labeled_img)
+
             except Exception as e:
                 print(f"Error: {str(e)}")
 
-
+print(img_class)
     
