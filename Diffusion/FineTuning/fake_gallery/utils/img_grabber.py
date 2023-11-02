@@ -81,7 +81,7 @@ def download_images(img_data, dataset_name):
         writer.writerows(metadata)
 
 ######################################################################
-# TODO this needs testing
+# TODO this is broke needs testing
 def upload_dataset(dataset_name, token):
     # Grab token
     with open(token, 'r') as f:
