@@ -3,6 +3,7 @@
 *.jpg
 *.parquet
 *img/
+*img_old/
 *.tif
 *connor/
 *TZVET/
