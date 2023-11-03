@@ -11,6 +11,15 @@ from PIL import Image
 from transformers import CLIPProcessor, CLIPModel
 
 def get_CAD_image_data(show_path):
+    """
+    Fetch and process image data from the Contemporary Art Daily website.
+
+    Args:
+        show_path (str): The URL to a gallery show on the CAD website.
+
+    Returns:
+        list: A list of dictionaries containing image URLs and associated text labels.
+    """
     try:
         image_data_list = []
         show_response = requests.get(show_path)
@@ -28,6 +37,15 @@ def get_CAD_image_data(show_path):
         print(f"Failed to download {show_path}: {e}")
 
 def get_TZVET_image_data(show_path):
+    """
+    Fetch and process image data from the Tzvetnik website.
+
+    Args:
+        show_path (str): The URL to a gallery show on the Tzvetnik website.
+
+    Returns:
+        list: A list of dictionaries containing image URLs and associated text labels.
+    """
     try:
         image_data_list = []
         response = requests.get(show_path)
@@ -51,6 +69,15 @@ def get_TZVET_image_data(show_path):
         print(f"Failed to download {show_path}: {e}")
     
 def get_personal_image_data(show_path):
+    """
+    Fetch and process personal image data from a given URL.
+
+    Args:
+        show_path (str): The URL to a personal gallery show.
+
+    Returns:
+        list: A list of dictionaries containing image file URLs and associated artist names.
+    """
     try:
         image_data_list = []
         artist = show_path.split('/')[-2]
@@ -71,8 +98,16 @@ def get_personal_image_data(show_path):
     except Exception as e:
         print(f"Failed to download {show_path}: {e}")
 
-
 def add_CLIP_labels(image_data):
+    """
+    Add labels to an image using the CLIP model for image classification.
+
+    Args:
+        image_data (dict): A dictionary with keys 'image' for the image URL, and 'text' for the associated text.
+
+    Returns:
+        dict: The updated dictionary with additional labels from the CLIP model.
+    """
     img_url = image_data['image']
     text = [image_data['text']]
     # Check if CUDA (GPU support) is available and set the device accordingly
@@ -114,9 +149,18 @@ def add_CLIP_labels(image_data):
         print(f"An error occurred: {e}")
         return image_data
 
-
-
 def download_image(image_data, dataset_name, idx):
+    """
+    Download an image and save it to a specified dataset directory.
+
+    Args:
+        image_data (dict): A dictionary containing 'image' and 'text' keys.
+        dataset_name (str): The name of the dataset directory to save the image.
+        idx (int): The index of the image, used to generate the filename.
+
+    Returns:
+        tuple: A tuple containing the filename and text label of the downloaded image.
+    """
     image_url = image_data['image']
     text = image_data['text']
     try:
@@ -132,6 +176,14 @@ def download_image(image_data, dataset_name, idx):
     return None
 
 def download_images(image_data_list, dataset_name):
+    """
+    Download multiple images and save their metadata to a CSV file.
+
+    Args:
+        image_data_list (list): A list of image data dictionaries to be downloaded.
+        dataset_name (str): The name of the dataset directory to save images and metadata.
+
+    """
     os.makedirs(f"./{dataset_name}", exist_ok=True)
     metadata = [("file_name", "text")]
     
@@ -147,13 +199,14 @@ def download_images(image_data_list, dataset_name):
         writer = csv.writer(csvfile)
         writer.writerows(metadata)
 
-def parse_arguments():
-    description = "***img_grabber.py*** This script is designed to take a file of urls to gallery exhibitions from specific websites and turn it into an ImageFolder type dataset to be used for Stable Diffusion finetuning.\nCurrently supports these websites: - https://www.contemporaryartlibrary.org/ - https://tzvetnik.online/"
-    parser = argparse.ArgumentParser(description=description)
-    parser.add_argument("--input_file", "-i", help="Path to the input file. Must be a .txt file. The filename will be your dataset name as well. This file contains the full URLs to the shows desired.")
-    return parser.parse_args()
-
 def build_dataset(input_file):
+    """
+    Build an image dataset from a text file containing URLs to gallery shows.
+
+    Args:
+        input_file (str): The file path to a text file containing URLs.
+
+    """
     dataset_name = input_file.strip(".txt")
     img_data = [] 
     with open(input_file) as f:
@@ -172,6 +225,18 @@ def build_dataset(input_file):
                 print(f"This url is not supported: {line.strip()}")
     if img_data:
         download_images(img_data, dataset_name)
+
+def parse_arguments():
+    """
+    Parse command line arguments for the image grabber script.
+
+    Returns:
+        Namespace: An argparse Namespace with command line arguments.
+    """
+    description = "***img_grabber.py*** This script is designed to take a file of urls to gallery exhibitions from specific websites and turn it into an ImageFolder type dataset to be used for Stable Diffusion finetuning.\nCurrently supports these websites: - https://www.contemporaryartlibrary.org/ - https://tzvetnik.online/"
+    parser = argparse.ArgumentParser(description=description)
+    parser.add_argument("--input_file", "-i", help="Path to the input file. Must be a .txt file. The filename will be your dataset name as well. This file contains the full URLs to the shows desired.")
+    return parser.parse_args()
 
 def main():
     args = parse_arguments()
