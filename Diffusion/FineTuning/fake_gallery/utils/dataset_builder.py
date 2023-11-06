@@ -90,7 +90,7 @@ def get_personal_image_data(show_path):
             if ".jpg" in tag_href:
                 img_file = a_tag.text
                 img_url = show_path+img_file
-                image_data = add_CLIP_labels({"image":img_url, "text":artist})
+                image_data = {"image":img_url, "text":artist}
                 image_data_list.append(image_data)
         
         return image_data_list
