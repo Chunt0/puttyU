@@ -62,7 +62,6 @@ def get_TZVET_image_data(show_path):
         for action_text in action_texts:
             img_url = action_text.get("url")
             image_data = add_CLIP_labels({"image":img_url, "text":artist})
-
             image_data_list.append(image_data)
         return image_data_list    
     except Exception as e:
@@ -91,7 +90,8 @@ def get_personal_image_data(show_path):
             if ".jpg" in tag_href:
                 img_file = a_tag.text
                 img_url = show_path+img_file
-                image_data_list.append({'image':img_url, 'text':artist})
+                image_data = add_CLIP_labels({"image":img_url, "text":artist})
+                image_data_list.append(image_data)
         
         return image_data_list
 
