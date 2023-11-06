@@ -149,7 +149,7 @@ def add_CLIP_labels(image_data):
         print(f"An error occurred: {e}")
         return image_data
 
-def download_image(image_data, dataset_name, idx):
+def download_image(image_data, dataset_name, idx, art_only=None):
     """
     Download an image and save it to a specified dataset directory.
 
@@ -163,6 +163,11 @@ def download_image(image_data, dataset_name, idx):
     """
     image_url = image_data['image']
     text = image_data['text']
+    
+    if art_only and ("gallery" in text or "room" in text):
+        return None
+
+    
     try:
         response = requests.get(image_url, stream=True)
         if response.status_code == 200:
@@ -171,11 +176,12 @@ def download_image(image_data, dataset_name, idx):
                 for chunk in response.iter_content(8192):
                     file.write(chunk)
             return (filename, text)
+
     except Exception as e:
         print(f"An error occurred: {str(e)}")
-    return None
+        return None
 
-def download_images(image_data_list, dataset_name):
+def download_images(image_data_list, dataset_name, art_only=None):
     """
     Download multiple images and save their metadata to a CSV file.
 
@@ -188,7 +194,7 @@ def download_images(image_data_list, dataset_name):
     metadata = [("file_name", "text")]
     
     with concurrent.futures.ThreadPoolExecutor() as executor:
-        futures = [executor.submit(download_image, image, dataset_name, idx) for idx, image in enumerate(image_data_list)]
+        futures = [executor.submit(download_image, image, dataset_name, idx, art_only) for idx, image in enumerate(image_data_list)]
     
     for future in concurrent.futures.as_completed(futures):
         result = future.result()
@@ -199,7 +205,7 @@ def download_images(image_data_list, dataset_name):
         writer = csv.writer(csvfile)
         writer.writerows(metadata)
 
-def build_dataset(input_file):
+def build_dataset(input_file, art_only=None):
     """
     Build an image dataset from a text file containing URLs to gallery shows.
 
@@ -224,7 +230,7 @@ def build_dataset(input_file):
             else:
                 print(f"This url is not supported: {line.strip()}")
     if img_data:
-        download_images(img_data, dataset_name)
+        download_images(img_data, dataset_name, art_only)
 
 def parse_arguments():
     """
@@ -236,12 +242,14 @@ def parse_arguments():
     description = "***img_grabber.py*** This script is designed to take a file of urls to gallery exhibitions from specific websites and turn it into an ImageFolder type dataset to be used for Stable Diffusion finetuning.\nCurrently supports these websites: - https://www.contemporaryartlibrary.org/ - https://tzvetnik.online/"
     parser = argparse.ArgumentParser(description=description)
     parser.add_argument("--input_file", "-i", help="Path to the input file. Must be a .txt file. The filename will be your dataset name as well. This file contains the full URLs to the shows desired.")
+    parser.add_argument("--art_only", action="store_true", help="Will not download any images labeled 'gallery' or 'room'")
     return parser.parse_args()
 
 def main():
     args = parse_arguments()
     input_file = args.input_file
-    build_dataset(input_file)
+    art_only = args.art_only
+    build_dataset(input_file, art_only)
 
 if __name__ == "__main__":
     main()
