@@ -172,7 +172,7 @@ def download_image(image_data, dataset_name, idx, art_only=None):
         response = requests.get(image_url, stream=True)
         if response.status_code == 200:
             filename = f"{idx}.jpg"
-            with open(f"./{dataset_name}/{filename}", 'wb') as file:
+            with open(f"./datasets/{dataset_name}/{filename}", 'wb') as file:
                 for chunk in response.iter_content(8192):
                     file.write(chunk)
             return (filename, text)
@@ -201,7 +201,7 @@ def download_images(image_data_list, dataset_name, art_only=None):
         if result:
             metadata.append(result)
     
-    with open(f"./{dataset_name}/metadata.csv", "w") as csvfile:
+    with open(f"./datasets/{dataset_name}/metadata.csv", "w") as csvfile:
         writer = csv.writer(csvfile)
         writer.writerows(metadata)
 
