@@ -190,7 +190,7 @@ def download_images(image_data_list, dataset_name, art_only=None):
         dataset_name (str): The name of the dataset directory to save images and metadata.
 
     """
-    os.makedirs(f"./{dataset_name}", exist_ok=True)
+    os.makedirs(f"./datasets/{dataset_name}", exist_ok=True)
     metadata = [("file_name", "text")]
     
     with concurrent.futures.ThreadPoolExecutor() as executor:
